@@ -1,0 +1,5 @@
+Usage: runnr update
+
+About:
+Checks for update. [Requires internet connection] 
+**TODO** Not implemented yet.

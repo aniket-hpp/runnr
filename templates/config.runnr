@@ -1,0 +1,15 @@
+# Template for runnr config
+
+.var {
+    compiler = `gcc`
+}
+
+.declare {
+    .c
+}
+
+.def c {
+    exec = `$compiler`,
+    run = `y`,
+    out = `a.out`
+}

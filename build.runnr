@@ -1,0 +1,30 @@
+.project {
+    runnr
+}
+
+.version {
+    v0_0_1
+}
+
+.var {
+    shell = `bash`,
+    binPath = `/usr/local/bin`,
+    rootRunnrPath = `~/.runnr`,
+    docsPath = `./docs`,
+    templatePath = `./templates`
+}
+
+.cmd {
+    compile = `go build -o $project .`,
+    makeDir = `mkdir -p $rootRunnrPath`,
+    copyDocs = `cp -r $docsPath $rootRunnrPath`,
+    copyTemplates = `cp -r $templatePath $rootRunnrPath`,
+    install = `sudo rm -f $binPath/runnr && sudo cp $project $binPath`
+}
+
+.build {
+    compile,
+    makeDir,
+    copyDocs,
+    copyTemplates
+}

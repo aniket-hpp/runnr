@@ -1,0 +1,44 @@
+#this is an comment
+#runnr ignores these lines
+
+#declare is a directive i.e, used for declaring the extensions that this file contains
+#declare must be defined before any of the other directives while executing an file
+
+.declare{
+    .c, #for C
+    .cpp, #for C++
+    .py #for Python
+}
+
+#definition directive is used for defining the properties of
+#a declared extension
+
+.def c {
+    #different modifiers exists for defining the properties
+    #of the extension or language
+    #the value of modifers must be inside backtick 
+
+    compiler = `gcc`, #sets a compiler
+    out=`a.out`, #sets an out filename
+    run=`n` #sets to only compile not execute
+}
+
+#similarly for python
+
+.def py {
+    interpreter = `python3`,
+}
+
+#variables directive
+
+.var {
+    cppStd = `-std=c++11`,
+    cppCompiler = `g++ $cppStd`
+}
+
+.def cpp {
+    #variable value unwraping using $ symbol 
+    compiler = `$cppCompiler`,
+    out=`main`,
+    run=`y`
+}

@@ -1,0 +1,26 @@
+Usage: runnr build [option]
+
+About:
+By default executes the commands in '.build' directive or executes a particular command from '.build' directive.
+
+Example:
+File: 'build.runnr'
+
+.cmd {
+    foo = `echo foo`,
+    bar = `echo bar`
+}
+
+.build {
+    foo,
+    bar
+}
+
+Console:
+$ runnr build
+foo
+bar
+$ runnr build foo
+foo
+$ runnr build bar
+bar

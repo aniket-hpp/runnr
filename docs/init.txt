@@ -1,0 +1,4 @@
+Usage: runnr init <config/script>
+
+About:
+Generates a config or script file in current directory. runnr config are used for storing informations related to an extension definition whereas runnr script are used for automating build processes by declaring the commands to execute.

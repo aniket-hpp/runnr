@@ -1,0 +1,10 @@
+Usage: runnr verbose ...
+
+About:
+Prints debugs informations & execute commands to the console.
+
+Example:
+Console:
+$ runnr verbose main.c
+gcc -o main main.c 
+./main 

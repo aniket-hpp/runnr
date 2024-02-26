@@ -1,0 +1,4 @@
+Usage: runnr version
+
+About:
+Shows current runnr version.

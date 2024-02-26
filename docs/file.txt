@@ -1,0 +1,9 @@
+Usage: runnr file <filename>
+
+About:
+Sets the filename to execute.
+
+Example:
+Console:
+$ runnr file main.c
+$ runnr file main.py

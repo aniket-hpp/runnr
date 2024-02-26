@@ -1,0 +1,17 @@
+Usage:
+    
+    runnr <command> [arguments]
+
+Available Commands:
+    
+    -h, help [topic]            Shows help.
+    version                     Shows runnr version.
+    update                      Check for update.
+    -i, init <config/script>    Creates a config/script file in current directory.
+    -b, build [option]          Runs 'build.runnr' in current directory.
+    -v, verbose                 Prints all the executed command.
+    args <arguments>            Passes additional arguments to the executable.
+    config-path                 Shows current config path.
+    -f, file <filename>         Sets the filename.    
+    -p, preprocessor            Prints the preprocessed file.    
+                

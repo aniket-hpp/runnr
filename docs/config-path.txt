@@ -1,0 +1,4 @@
+Usage: runnr config-path
+
+About:
+Print path of current config file.

@@ -1,0 +1,10 @@
+Usage: runnr ... args <arguments> ...
+
+About:
+Passes aditional cli arguments to executables.
+
+Example:
+Console:
+$ runnr verbose args "2 3" sum.c
+gcc -o sum sum.c
+./sum "2 3"
