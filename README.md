@@ -16,7 +16,7 @@ runnr is an automated, cross-platform, open source project building cli tool. Si
 
 # Documentations
 
-Will be added soon.
+Will be added soon with version v0.3.0~alpha.
 
 # How to install?
 
@@ -32,7 +32,7 @@ cp ./runnr /usr/local/bin   #to install it gloabally
 
 ### Using runnr:
 >[!TIP]
->runnr can be compiled using runnr itself. If you already had runnr installed then run the below command
+>runnr[v>=0.2.0] can be compiled using runnr itself. If you already had runnr installed then run the below command.
 
 ```bash
 runnr build
@@ -45,17 +45,21 @@ make
 make install #to install it gloabally
 ```
 
+# Changes
+
++ Added accessing OS's enviroment using $env([name]) function.
+
 # Future plans
 
-+ Accessing OS's enviroment using $env() function.
-+ if-else blocks
++ conditional blocks
 
 # Release Cycle
 
+>Will be followed after Stable Release:
 + Patches: as required
 + Minor Version: every two months
 + Major Version: once an year
 
 # Version
 
-v0.0.1~alpha
+v0.0.2~alpha

@@ -5,12 +5,15 @@
 }
 
 .version {
-    v0_0_1
+    v0_2_0
+}
+
+.var {
+    shell = `bash`
 }
 
 .cmd {
-    shell = `bash`,
-    hello = `echo "Hello, World!"`
+    hello = `echo "Hello" $env(USER)`
 }
 
 .build {

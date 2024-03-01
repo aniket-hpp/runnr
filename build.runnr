@@ -3,13 +3,13 @@
 }
 
 .version {
-    v0_0_1
+    v0_2_0
 }
 
 .var {
     shell = `bash`,
     binPath = `/usr/local/bin`,
-    rootRunnrPath = `~/.runnr`,
+    rootRunnrPath = `$env(HOME)/.runnr`,
     docsPath = `./docs`,
     templatePath = `./templates`
 }
