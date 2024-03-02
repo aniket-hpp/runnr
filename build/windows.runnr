@@ -1,0 +1,31 @@
+#runnr building script for windows
+
+.project {
+    runnr
+}
+
+.version {
+    v0_2_0
+}
+
+.var {
+    shell = `powershell`,
+    rootRunnrPath = `$env(HOMEPATH)\.runnr`,
+    docsPath = `.\docs`,
+    templatePath = `.\templates`
+}
+
+.cmd {
+    compile = `go build -o $project.exe .`,
+    makeDir = `rm -r $rootRunnrPath; mkdir $rootRunnrPath`,
+    copyDocs = `cp -r $docsPath $rootRunnrPath`,
+    copyTemplates = `cp -r $templatePath $rootRunnrPath`,
+    install = `cp $project.exe $rootRunnrPath`
+}
+
+.build {
+    compile,
+    makeDir,
+    copyDocs,
+    copyTemplates,
+}

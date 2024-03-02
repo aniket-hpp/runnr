@@ -8,6 +8,7 @@ import (
 	cli "runnr/src/Cli"
 	config "runnr/src/Config"
 	logerr "runnr/src/Logerr"
+	"runtime"
 )
 
 // Function to execute given command string list
@@ -15,8 +16,13 @@ func Execute(cmds []string) {
 	shell, ok := config.VarsDecl["shell"]
 
 	if !ok {
-		logerr.Warn("variable '$shell' is undefined in '%s', using default 'bash'", cli.Path)
-		shell = "bash"
+		if runtime.GOOS == "windows" {
+			shell = "powershell"
+		} else {
+			shell = "bash"
+		}
+
+		logerr.Warn("variable '$shell' is undefined in '.var' directive of file '%s', using default '%s'", cli.Path, shell)
 	}
 
 	// loops over the cmds
