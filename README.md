@@ -32,7 +32,7 @@ cp ./runnr /usr/local/bin   #to install it gloabally
 
 ### Using runnr:
 >[!TIP]
->runnr[v>=0.2.0] can be compiled using runnr itself. If you already had runnr installed then run the below command.
+>runnr can be compiled using runnr itself. If you already had runnr installed then run the below command.
 
 ```bash
 runnr build
@@ -47,11 +47,14 @@ make install #to install it gloabally
 
 # Changes
 
+### v0.2.0~alpha:
+
 + Added accessing OS's enviroment using $env([name]) function.
 
-# Future plans
+### v0.2.5~alpha:
 
-+ conditional blocks
++ Bug Fixes: config-path
++ Working on support for windows.
 
 # Release Cycle
 
@@ -62,4 +65,4 @@ make install #to install it gloabally
 
 # Version
 
-v0.0.2~alpha
+v0.2.5~alpha

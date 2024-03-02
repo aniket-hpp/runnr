@@ -35,7 +35,7 @@ func GenerateExtnCmd(extnMap map[string]string) []string {
 
 	// for run and args command
 	if val, ok := extnMap["run"]; ok && val == "y" {
-		cmd2 += "." + "/" + config.VarsDecl["file"]
+		cmd2 += "." + cli.Slash + config.VarsDecl["file"]
 
 		// wraps the args value in quote
 		if val, ok = config.VarsDecl["args"]; ok {

@@ -336,42 +336,42 @@ func (p *Parser) parseAssignment() string {
 
 			//slice the actual variable from the string
 			xvar := data[beg:i]
-			
-      //if the variable name starts with $env
-      //its an env function call
-      if xvar == "env" {
-        //next char must be (
-        if data[i] != '(' {
-          logerr.Log("expected '(' after '$env' at line '%d: %s' in config file '%s'", cli.Path, p.l.Pos.Row, data)
-          os.Exit(1)
-        }
-        
-        i++ //eat (
-        //store the begining
-        envBeg := i
-        
-        //loop until )
-        for i < len(data) && data[i] != ')' {
-          i++
-        }
-        
-        //retrieve the env and eat )
-        finalData += os.Getenv(data[envBeg:i])
-        i++
-      }else{
-        //checks and copies the variable value
-        xval, contains := config.VarsDecl[xvar]
 
-        //if variable is undefind
-        if !contains {
-          logerr.LogPos(p.l.Pos)
-          logerr.Log("undefined variable '$%s'", xvar)
-          os.Exit(1)
-        }
+			//if the variable name starts with $env
+			//its an env function call
+			if xvar == "env" {
+				//next char must be (
+				if data[i] != '(' {
+					logerr.Log("expected '(' after '$env' at line '%d: %s' in config file '%s'", cli.Path, p.l.Pos.Row, data)
+					os.Exit(1)
+				}
 
-        //appends the final data of the var
-        finalData += xval
-      }
+				i++ //eat (
+				//store the begining
+				envBeg := i
+
+				//loop until )
+				for i < len(data) && data[i] != ')' {
+					i++
+				}
+
+				//retrieve the env and eat )
+				finalData += os.Getenv(data[envBeg:i])
+				i++
+			} else {
+				//checks and copies the variable value
+				xval, contains := config.VarsDecl[xvar]
+
+				//if variable is undefind
+				if !contains {
+					logerr.LogPos(p.l.Pos)
+					logerr.Log("undefined variable '$%s'", xvar)
+					os.Exit(1)
+				}
+
+				//appends the final data of the var
+				finalData += xval
+			}
 
 			//if any space
 			if i < len(data) {
@@ -643,15 +643,15 @@ func (p *Parser) parseVersion() {
 	if !logerr.Exepected(p.l.Pos, tokens.TK_MODIFIER, p.l.CurrentToken) {
 		os.Exit(1)
 	}
-  
-  // it must start with v and contains _
+
+	// it must start with v and contains _
 	if p.l.Identifier[0] == 'v' && strings.Contains(p.l.Identifier, "_") {
 		// removing v
-    p.l.Identifier = p.l.Identifier[1:]
-    // spliting into token by _
+		p.l.Identifier = p.l.Identifier[1:]
+		// spliting into token by _
 		verList := strings.Split(p.l.Identifier, "_")
-    
-    // if less than 3 {maj, min, patch}
+
+		// if less than 3 {maj, min, patch}
 		if len(verList) != 3 {
 			logerr.Log("wrong format for version in '.version' directive in '%s' file\nfromat should be: major_minor_patch", cli.Path)
 			os.Exit(1)

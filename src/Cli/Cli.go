@@ -7,6 +7,7 @@ import (
 	config "runnr/src/Config"
 	internals "runnr/src/Internals"
 	logerr "runnr/src/Logerr"
+	"runtime"
 	"strings"
 )
 
@@ -19,19 +20,21 @@ var (
 	Extn            string
 	Verbose         bool
 	GetPreProcessed bool
+	Slash           = "/"
+	docsPath        string
+	templatesPath   string
 )
 
 const (
 	configFileName = "config.runnr"
 	buildFileName  = "build.runnr"
 	libraryPath    = ".runnr"
-	docsPath       = libraryPath + "/docs"
-	templatesPath  = libraryPath + "/templates"
 )
 
 // Starts Processing Cli args
 // Almost complete
 func StartCli() {
+	checkOS()
 	// loops through args to check if single commands args are present or not
 	i := 1
 	for i < len(Args) {
@@ -50,10 +53,10 @@ func StartCli() {
 				// else grab home dir
 				homeDir, _ := os.UserHomeDir()
 				// readd default help.txt
-				help, err := os.ReadFile(homeDir + "/" + docsPath + "/help.txt")
+				help, err := os.ReadFile(homeDir + Slash + docsPath + Slash + "help.txt")
 
 				if err != nil {
-					logerr.Log("docs path '%s' doesn't exists", homeDir+"/"+docsPath+"/help.txt")
+					logerr.Log("docs path '%s' doesn't exists", homeDir+Slash+docsPath+Slash+"help.txt")
 					os.Exit(1)
 				}
 
@@ -90,7 +93,7 @@ func StartCli() {
 				// set build to be true
 				MakeBuild = true
 				Verbose = true
-				goto setPathAndReturn
+				goto setPathandExit
 			}
 
 		case "verbose", "-v":
@@ -102,7 +105,7 @@ func StartCli() {
 			i++
 
 		case "config-path":
-			fmt.Println(Path)
+			fmt.Println(setPath())
 			os.Exit(0)
 
 		case "file", "-f":
@@ -128,9 +131,19 @@ func StartCli() {
 		}
 	}
 
-setPathAndReturn:
-	// set the path
+setPathandExit:
 	Path = setPath()
+}
+
+// Function to set correct dir / or \\ based on os
+func checkOS() {
+	if runtime.GOOS == "windows" {
+		Slash = "\\"
+		fmt.Printf("%s\n", docsPath)
+	}
+
+	docsPath = libraryPath + Slash + "docs"
+	templatesPath = libraryPath + Slash + "templates"
 }
 
 // Function to set config paths
@@ -143,30 +156,30 @@ func setPath() string {
 	// if user passed build through cli
 	// then return build.runnr if exists in cwd
 	if MakeBuild {
-		if _, err := os.Stat(cwd + "/" + buildFileName); err != nil {
-			logerr.Log("no 'build.runnr' file found in '%s' directory", cwd+"/"+buildFileName)
+		if _, err := os.Stat(cwd + Slash + buildFileName); err != nil {
+			logerr.Log("no 'build.runnr' file found in '%s' directory", cwd+Slash+buildFileName)
 			os.Exit(1)
 		}
 
-		return cwd + "/" + buildFileName
+		return cwd + Slash + buildFileName
 	}
 
 	// checks if a config file exists in current dir
-	_, err := os.Stat(cwd + "/" + path)
+	_, err := os.Stat(cwd + Slash + path)
 	if err == nil {
-		return cwd + "/" + path
+		return cwd + Slash + path
 	}
 
 	// else default to UserHomeDir
 	homeDir, _ := os.UserHomeDir()
-	_, err = os.Stat(homeDir + "/" + path)
+	_, err = os.Stat(homeDir + Slash + path)
 	// if config file doesn't exists
 	if err != nil {
-		os.Create(homeDir + "/" + path)
+		os.Create(homeDir + Slash + path)
 	}
 
 	// return default path
-	return homeDir + "/" + path
+	return homeDir + Slash + path
 }
 
 // Function to print sub docs
@@ -174,7 +187,7 @@ func showHelp(docName string) {
 	// reads user home dir
 	homeDir, _ := os.UserHomeDir()
 	// tries to read the doc file
-	help, err := os.ReadFile(homeDir + "/" + docsPath + "/" + docName + ".txt")
+	help, err := os.ReadFile(homeDir + Slash + docsPath + Slash + docName + ".txt")
 
 	// if fails
 	if err != nil {
@@ -203,28 +216,28 @@ func createTemplate(templateType string) {
 			}
 
 			// check if a file already exists in cwd
-			if _, err := os.Stat(cwd + "/" + fileName); err == nil {
-				logerr.Warn("%s file already exists in '%s'", templateType, cwd+"/"+fileName)
+			if _, err := os.Stat(cwd + Slash + fileName); err == nil {
+				logerr.Warn("%s file already exists in '%s'", templateType, cwd+Slash+fileName)
 				os.Exit(1)
 			}
 
 			// else grab the home directory
 			homeDir, _ := os.UserHomeDir()
 			// fetch the datas from template folder
-			src, err := os.Open(homeDir + "/" + templatesPath + "/" + fileName)
+			src, err := os.Open(homeDir + Slash + templatesPath + Slash + fileName)
 			defer src.Close()
 
 			if err != nil {
-				logerr.Log("failed to open template file from '%s'", homeDir+"/"+templatesPath+"/"+fileName)
+				logerr.Log("failed to open template file from '%s'", homeDir+Slash+templatesPath+Slash+fileName)
 				os.Exit(1)
 			}
 
 			// create a file in cwd
-			dest, err := os.Create(cwd + "/" + fileName)
+			dest, err := os.Create(cwd + Slash + fileName)
 			defer dest.Close()
 
 			if err != nil {
-				logerr.Log("failed to create %s file in '%s'", templateType, cwd+"/"+fileName)
+				logerr.Log("failed to create %s file in '%s'", templateType, cwd+Slash+fileName)
 				os.Exit(1)
 			}
 
@@ -232,7 +245,7 @@ func createTemplate(templateType string) {
 			_, err = io.Copy(dest, src)
 
 			if err != nil {
-				logerr.Log("failed to copy data in file '%s'", cwd+"/"+fileName)
+				logerr.Log("failed to copy data in file '%s'", cwd+Slash+fileName)
 				os.Exit(1)
 			}
 
