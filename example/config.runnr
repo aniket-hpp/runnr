@@ -1,10 +1,15 @@
+#example for config file
+
 #this is an comment
 #runnr ignores these lines
 
-#declare is a directive i.e, used for declaring the extensions that this file contains
-#declare must be defined before any of the other directives while executing an file
+#modin can be used to include other .runnr files in another
+.modin {
+    #`/path/to/another/file`
+}
 
-.declare{
+#declare is a directive i.e, used for declaring the extensions that this file contains
+.declare {
     .c, #for C
     .cpp, #for C++
     .py #for Python
@@ -12,7 +17,6 @@
 
 #definition directive is used for defining the properties of
 #a declared extension
-
 .def c {
     #different modifiers exists for defining the properties
     #of the extension or language
@@ -24,13 +28,11 @@
 }
 
 #similarly for python
-
 .def py {
     interpreter = `python3`,
 }
 
 #variables directive
-
 .var {
     cppStd = `-std=c++11`,
     cppCompiler = `g++ $cppStd`
@@ -38,7 +40,7 @@
 
 .def cpp {
     #variable value unwraping using $ symbol 
-    compiler = `$cppCompiler`,
+    compiler = `$cppCompiler $cppStd`,
     out=`main`,
     run=`y`
 }

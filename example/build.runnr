@@ -1,0 +1,30 @@
+#example for build script file
+
+#this is an comment
+#runnr ignores these lines
+
+#modin can be used to include other .runnr files in another
+.modin {
+    #`/path/to/another/file`
+}
+
+#variables directive
+.var {
+    shell = `bash`, #it is required to set the shell variable,
+                    #runnr should know which shell you use
+    print = `echo`
+}
+
+#.cmd directive stores the command that can be executed by using
+#runnr build <command-name>
+#ex: runnr build sayGoodMorning
+.cmd {
+    sayHello = `$print "Hello" $env(USER)`, #$env([name]) function can be used to access OS's enviorment variable
+    sayGoodMorning = `$print "Good Morning"`
+}
+
+#.build directive can be used to automatically execute commands from .cmd directive
+#by using runnr build
+.build {
+    sayHello
+}

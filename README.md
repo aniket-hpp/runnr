@@ -125,6 +125,11 @@ runnr build install #to install it globally
 
 + Added support for Microsoft's Windows OS.
 
+### v0.2.8~alpha:
+
++ Added option to call $env([name]) in .modin directive.
++ Added enhanced error handling for pre-processor with file-path stack.
+
 # Release Cycle
 
 >Will be followed after Stable Release:
@@ -134,4 +139,4 @@ runnr build install #to install it globally
 
 # Version
 
-v0.2.7~alpha
+v0.2.8~alpha

@@ -23,7 +23,7 @@ func main() {
 
 	// Reading Byte data from the Config File
 	data, _ := os.ReadFile(cli.Path)
-	processedData := preprocessor.PreProcess(string(data))
+	processedData := preprocessor.PreProcess(cli.Path, string(data))
 
 	if cli.GetPreProcessed {
 		fmt.Println(processedData)
