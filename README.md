@@ -95,7 +95,6 @@ Then run these below commands in powershell:
 
 ```powershell
 runnr build
-rm $HOME\.runnr\runnr.exe
 cp .\runnr.exe $HOME\.runnr
 ```
 

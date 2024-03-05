@@ -11,18 +11,18 @@
 .var {
     shell = `powershell`,
     rootRunnrPath = `$env(HOMEPATH)\.runnr`,
-    docsPath = `.\docs`,
-    templatePath = `.\templates`
+    docsPath = `.\\docs`,
+    templatePath = `.\\templates`
 }
 
 .cmd {
     compile = `go build -o $project.exe .`,
     
-    makeDir = `if((Test-Item $rootRunnrPath\docs)){
+    makeDir = `if((Test-Path $rootRunnrPath\docs)){
         rm -r $rootRunnrPath\docs; 
     };
 
-    if((Test-Item $rootRunnrPath\templates)){
+    if((Test-Path $rootRunnrPath\templates)){
         rm -r $rootRunnrPath\templates; 
     };`,
 
