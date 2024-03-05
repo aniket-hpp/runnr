@@ -71,11 +71,10 @@ make install #to install it globally
 
 ## Windows
 ### Manually:
-Open poweshell with Administrative privileges and run these following commands:
+Open poweshell and run these following commands:
 
 ```powershell
 go build -o runnr.exe .
-rm -r $HOME\.runnr
 mkdir $HOME\.runnr
 cp -r .\docs $HOME\.runnr
 cp -r .\templates $HOME\.runnr
@@ -92,11 +91,12 @@ First copy the windows.runnr file as build.runnr from "build" directory to root 
 cp .\build\windows.runnr .\build.runnr
 ```
 
-Then run these below commands in powershell with Administrative privileges:
+Then run these below commands in powershell:
 
 ```powershell
 runnr build
-runnr build install #to install it globally
+rm $HOME\.runnr\runnr.exe
+cp .\runnr.exe $HOME\.runnr
 ```
 
 >[!IMPORTANT]
@@ -130,6 +130,10 @@ runnr build install #to install it globally
 + Added option to call $env([name]) in .modin directive.
 + Added enhanced error handling for pre-processor with file-path stack.
 
+### v0.2.9~alpha:
+
++ Updated installation docs for windows.  
+
 # Release Cycle
 
 >Will be followed after Stable Release:
@@ -139,4 +143,4 @@ runnr build install #to install it globally
 
 # Version
 
-v0.2.8~alpha
+v0.2.9~alpha

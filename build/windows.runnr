@@ -17,15 +17,22 @@
 
 .cmd {
     compile = `go build -o $project.exe .`,
-    makeDir = `rm -r $rootRunnrPath; mkdir $rootRunnrPath`,
+    
+    makeDir = `if((Test-Item $rootRunnrPath\docs)){
+        rm -r $rootRunnrPath\docs; 
+    };
+
+    if((Test-Item $rootRunnrPath\templates)){
+        rm -r $rootRunnrPath\templates; 
+    };`,
+
     copyDocs = `cp -r $docsPath $rootRunnrPath`,
-    copyTemplates = `cp -r $templatePath $rootRunnrPath`,
-    install = `cp $project.exe $rootRunnrPath`
+    copyTemplates = `cp -r $templatePath $rootRunnrPath`
 }
 
 .build {
     compile,
     makeDir,
     copyDocs,
-    copyTemplates,
+    copyTemplates
 }
